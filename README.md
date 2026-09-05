@@ -107,6 +107,6 @@ S = S_t0 + sigma * W
 
 預設觀察時間對應tick的index `[500, 1000, 1500, 2000, 2500, 3000]`。圖中的 $t_1,t_2,\ldots,t_n$ 是觀察點的示意標籤；例如圖上的 $t_1$ 代表時間 `1`，不是tick的第一步 `0.002`。
 
-## 5. 輸出圖片
+## 5. 輸出結果與圖片
 
 ![間斷時間與連續時間圖示：以Generalized Wiener process為例](Generalized_Wiener_Process_Demo_Figure.png)
