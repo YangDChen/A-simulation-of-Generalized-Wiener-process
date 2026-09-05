@@ -17,7 +17,7 @@
 
 ### 標準 Brownian / Wiener process
 
-標準Wiener process $W_t$滿足 $W_0 = 0$、路徑幾乎必然連續，且不重疊時間區間的增量互相獨立。對於$0\le s<t$：
+標準Wiener process $W_t$ 滿足Initial value $W_0 = 0$、路徑幾乎必然連續，且不重疊時間區間的增量互相獨立。對於 $0\le s<t$：
 
 $$
 W_t-W_s\sim\mathcal{N}(0,t-s).
@@ -31,7 +31,7 @@ Var(W_t)=t,\qquad
 Cov(W_s,W_t)=\min(s,t).
 $$
 
-### 本程式使用的模型
+### 模型
 
 常數係數的一般化Wiener process可寫為：
 
@@ -47,34 +47,34 @@ S_t=S_0+\sigma W_t,
 \qquad S_t\sim\mathcal{N}(S_0,\sigma^2t).
 $$
 
-因此$S_t-S_s\sim\mathcal{N}(0,\sigma^2(t-s))$非 geometric Brownian motion；其值可能為負，沒有保證價格為正的機制。$\sigma$ 是每平方根時間單位的波動度，而非百分比報酬波動度。
+因此 $S_t-S_s\sim\mathcal{N}(0,\sigma^2(t-s))$ 非geometric Brownian motion，其值可能為負，沒有保證價格為正的機制。 $\sigma$ 是每平方根時間單位的波動度，而非百分比報酬波動度。
 
 ## 模擬邏輯
 
 1. 將時間區間 $[0,T]$ 均分為 $N$ 段：
 
-   $$
-   \Delta t=T/N,\qquad t_i=i\Delta t,\quad i=0,1,\ldots,N.
-   $$
+$$
+\Delta t=T/N,\qquad t_i=i\Delta t,\quad i=0,1,\ldots,N.
+$$
 
-2. 產生 $N$ 個獨立標準常態衝擊，並縮放為 Brownian increments：
+3. 產生 $N$ 個獨立標準常態衝擊，並縮放為Brownian increments：
 
-   $$
-   \varepsilon_i\overset{\mathrm{iid}}{\sim}\mathcal{N}(0,1),\qquad
-   \Delta W_i=\sqrt{\Delta t}\,\varepsilon_i\sim\mathcal{N}(0,\Delta t),\quad i=1,\ldots,N.
-   $$
+$$
+\varepsilon_i\overset{\mathrm{iid}}{\sim}\mathcal{N}(0,1),\qquad
+\Delta W_i=\sqrt{\Delta t}\,\varepsilon_i\sim\mathcal{N}(0,\Delta t),\quad i=1,\ldots,N.
+$$
 
-   必須乘上 $\sqrt{\Delta t}$，因為變異數會隨乘數的平方縮放。NumPy 的 `normal(scale=...)` 接受的是標準差。
+   必須乘上 $\sqrt{\Delta t}$，因為變異數會隨乘數的平方縮放。
 
-3. 累積增量並加入初始值：
+4. 累積增量並加入初始值：
 
-   $$
-   W_{t_0}=0,\qquad W_{t_k}=\sum_{i=1}^{k}\Delta W_i,
-   \qquad S_{t_k}=S_0+\sigma W_{t_k}.
-   $$
+$$
+W_{t_0}=0,\qquad W_{t_k}=\sum_{i=1}^{k}\Delta W_i,
+\qquad S_{t_k}=S_0+\sigma W_{t_k}.
+$$
 
-4. 對每個指定觀察時間，以 `np.argmin(np.abs(t - time))` 尋找最近的網格位置，再擷取 `S` 的對應數值。
-5. 使用 Matplotlib 繪製路徑與觀察點。
+5. 對每個指定觀察時間，以 `np.argmin(np.abs(t - time))` 尋找最近的tick位置，再擷取 `S` 的對應數值。
+6. 用Matplotlib畫路徑與觀察點。
 
 核心運算對應如下：
 
@@ -88,7 +88,7 @@ S = S_t0 + sigma * W
 | 變數 | 預設形狀 | 意義 |
 | --- | --- | --- |
 | `e`, `dW` | `(3000,)` | 每個時間區間的衝擊與增量 |
-| `t`, `W`, `S` | `(3001,)` | 包含起點的時間網格與過程值 |
+| `t`, `W`, `S` | `(3001,)` | 包含起點的時間tick與過程value |
 | `observation_values` | `(6,)` | 六個指定時間的觀察值 |
 
 ## 參數說明
@@ -100,9 +100,9 @@ S = S_t0 + sigma * W
 | `N` | `3000` | 時間區間數，須為正整數 |
 | `dt` | `T / N = 0.002` | 時間步長，由前兩項計算 |
 | `S_t0` | `2.0` | 初始值 $S_0$ |
-| `sigma` | `0.30` | 波動度，可以參考過去歷史資料取得波動度，或使用GARCH model|
+| `sigma` | `0.30` | 波動度，這裡我是自行假設。可以參考過去歷史資料取得波動度，或使用GARCH model來取得合理波動度|
 | `observation_times` | `[1, 2, 3, 4, 5, 6]` | 圖上的觀察時間 |
 
 `T` 須大於零。時間單位由使用情境決定；程式沒有指定年、日或秒，解讀 `sigma` 時須使用一致的時間單位。
 
-預設觀察時間對應網格索引 `[500, 1000, 1500, 2000, 2500, 3000]`。圖中的 $t_1,t_2,\ldots,t_n$ 是觀察點的示意標籤；例如圖上的 $t_1$ 代表時間 `1`，不是細網格的第一步 `0.002`。
+預設觀察時間對應tick的index `[500, 1000, 1500, 2000, 2500, 3000]`。圖中的 $t_1,t_2,\ldots,t_n$ 是觀察點的示意標籤；例如圖上的 $t_1$ 代表時間 `1`，不是tick的第一步 `0.002`。
