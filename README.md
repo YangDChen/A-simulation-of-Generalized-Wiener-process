@@ -1,10 +1,10 @@
-# Generalized Wiener Process Simulation
+# 0. Generalized Wiener Process Simulation
 
 以Python模擬並視覺化零漂移的一般化 Wiener process，展示標準常態衝擊如何經由時間尺度調整、累積與線性轉換，形成隨機過程的單一路徑，以及路徑上的離散觀察值。
 
 核心程式為 [`GWP_simulation.py`](GWP_simulation.py)，不需要額外下載外部資料集，直接執行code即可，若有需要也可以自行修改參數設定。
 
-## 專案目的與功能
+## 1. 專案目的與功能
 
 - 由i.i.d.標準常態分配抽取樣本建立Brownian increments。
 - 累積增量，得到從零開始的Standard Brownian morion。
@@ -13,9 +13,9 @@
 
 目前程式採固定參數、單一路徑模擬，未實作非零漂移、多路徑統計、參數估計或命令列參數介面。
 
-## 數學角度
+## 2. 數學角度
 
-### Standard Brownian motion
+### (1) Standard Brownian motion
 
 Standard Brownian motion $B(t)$ 滿足Initial value $W_0 = 0$、路徑幾乎必然連續，且不重疊時間區間的增量互相獨立。對於 $0\le s<t$：
 
@@ -31,7 +31,7 @@ Var(B(t))=t,\qquad
 Cov(B(s),B(t))=\min(s,t).
 $$
 
-### Stochastic process Model: Generalized Wiener process
+### (2) Stochastic process Model: Generalized Wiener process
 
 常數係數的一般化Wiener process可寫成：
 
@@ -49,7 +49,7 @@ $$
 
 因此 $S_t-S_s\sim\mathcal{N}(0,\sigma^2(t-s))$ 非geometric Brownian motion，其值可能為負，沒有保證價格為正的機制。 $\sigma$ 是每平方根時間單位的波動度，而非百分比報酬波動度。
 
-## 模擬邏輯
+## 3. 模擬邏輯
 
 1. 將時間區間 $[0,T]$ 均分為 $N$ 段：
 
@@ -91,7 +91,7 @@ S = S_t0 + sigma * W
 | `t`, `W`, `S` | `(3001,)` | 包含起點的時間tick與過程value |
 | `observation_values` | `(6,)` | 六個指定時間的觀察值 |
 
-## 參數說明
+## 4. 參數說明
 
 | 參數 | 預設值 | 說明 |
 | --- | --- | --- |
