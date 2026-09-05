@@ -17,7 +17,7 @@
 
 ### 標準 Brownian / Wiener process
 
-標準Wiener process $W_t$滿足$\text{W_0 = 0}$、路徑幾乎必然連續，且不重疊時間區間的增量互相獨立。對於$0\le s<t$：
+標準Wiener process $W_t$滿足 $W_0 = 0$、路徑幾乎必然連續，且不重疊時間區間的增量互相獨立。對於$0\le s<t$：
 
 $$
 W_t-W_s\sim\mathcal{N}(0,t-s).
