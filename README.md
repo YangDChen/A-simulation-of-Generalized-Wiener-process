@@ -17,21 +17,19 @@
 
 ### 標準 Brownian / Wiener process
 
-標準Wiener process $W_t$滿足$W_0=0$、路徑幾乎必然連續，且不重疊時間區間的增量互相獨立。對$0\le s<t$：
+標準Wiener process $W_t$滿足$\text{W_0 = 0}$、路徑幾乎必然連續，且不重疊時間區間的增量互相獨立。對於$0\le s<t$：
 
 $$
 W_t-W_s\sim\mathcal{N}(0,t-s).
 $$
 
-本文 $\mathcal{N}(m,v)$ 的第二個參數為變異數。因此：
+$\mathcal{N}(m,v)$ 的第二個參數為變異數。因此：
 
 $$
 \mathbb{E}[W_t]=0,\qquad
-\Var(W_t)=t,\qquad
-\Cov(W_s,W_t)=\min(s,t).
+Var(W_t)=t,\qquad
+Cov(W_s,W_t)=\min(s,t).
 $$
-
-不重疊區間的增量彼此獨立，不是不同時間點的過程值。
 
 ### 本程式使用的模型
 
