@@ -6,34 +6,34 @@
 
 ## 專案目的與功能
 
-- 由獨立標準常態樣本建立 Brownian increments。
-- 累積增量，得到從零開始的標準 Brownian / Wiener process。
-- 透過初始值與波動係數，建立 $S_t=S_0+\sigma W_t$。
+- 由i.i.d.標準常態分配抽取樣本建立Brownian increments。
+- 累積增量，得到從零開始的Standard Brownian morion。
+- 透過initial value與 $\sigma$，建立 Generalized Wiener process： $S_t=S_0+\sigma W_t$。
 - 繪製一條模擬路徑，標示指定時間的觀察值、垂直輔助線及數學符號。
 
 目前程式採固定參數、單一路徑模擬，未實作非零漂移、多路徑統計、參數估計或命令列參數介面。
 
 ## 數學角度
 
-### 標準 Brownian / Wiener process
+### Standard Brownian motion
 
-標準Wiener process $W_t$ 滿足Initial value $W_0 = 0$、路徑幾乎必然連續，且不重疊時間區間的增量互相獨立。對於 $0\le s<t$：
+Standard Brownian motion $B(t)$ 滿足Initial value $W_0 = 0$、路徑幾乎必然連續，且不重疊時間區間的增量互相獨立。對於 $0\le s<t$：
 
 $$
-W_t-W_s\sim\mathcal{N}(0,t-s).
+B(t)-B(s)\sim\mathcal{N}(0,t-s).
 $$
 
 $\mathcal{N}(m,v)$ 的第二個參數為變異數。因此：
 
 $$
 \mathbb{E}[W_t]=0,\qquad
-Var(W_t)=t,\qquad
-Cov(W_s,W_t)=\min(s,t).
+Var(B(t))=t,\qquad
+Cov(B(s),B(t))=\min(s,t).
 $$
 
-### 模型
+### Stochastic process Model: Generalized Wiener process
 
-常數係數的一般化Wiener process可寫為：
+常數係數的一般化Wiener process可寫成：
 
 $$
 dS_t=\mu\,dt+\sigma\,dW_t,
