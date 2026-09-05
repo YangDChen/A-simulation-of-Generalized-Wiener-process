@@ -1,6 +1,6 @@
 # Generalized Wiener Process Simulation
 
-此專案以Python模擬並視覺化 **零漂移的一般化 Wiener process**，展示標準常態衝擊如何經由時間尺度調整、累積與線性轉換，形成隨機過程的單一路徑，以及路徑上的離散觀察值。
+以Python模擬並視覺化零漂移的一般化 Wiener process，展示標準常態衝擊如何經由時間尺度調整、累積與線性轉換，形成隨機過程的單一路徑，以及路徑上的離散觀察值。
 
 核心程式為 [`GWP_simulation.py`](GWP_simulation.py)，不需要額外下載外部資料集。
 
