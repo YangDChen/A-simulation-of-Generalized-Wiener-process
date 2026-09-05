@@ -109,4 +109,4 @@ S = S_t0 + sigma * W
 
 ## 5. 輸出圖片
 
-
+![間斷時間與連續時間圖示：以Generalized Wiener process為例](Generalized_Wiener_Process_Demo_Figure.png)
